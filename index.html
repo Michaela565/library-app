@@ -6,8 +6,59 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="script.js" defer></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    
+    <nav>
+        <h1 class="largest">Your Library</h1>
+        <button class="nav-button">Log in</button>
+    </nav>
+    <div class="contents">
+        <div class="books">
+            <div class="book"></div>
+            <div class="book"></div>
+        </div>
+        <div class="sidebar">
+            <div class="form">
+                <h3 class="large">Add a book</h3>
+                <form action="" method="post" class="add-a-book">
+                    
+                    <div class="input-holder">
+                        <label for="title">Title:</label>
+                        <input type="text" name="title" id="title">
+                    </div>
+                    <div class="input-holder">
+                        <label for="author">Author:</label>
+                        <input type="text" name="author" id="author">
+                    </div>
+                    <div class="input-holder">
+                        <label for="pages">Number of pages:</label>
+                        <input type="number" name="pages" id="pages">
+                    </div>
+                    <div class="input-holder">
+                        <label for="have-read">Mark as read:</label>
+                        <input type="radio" name="have-read" id="have-read">
+                    </div>
+                    <div class="input-holder">
+                        <textarea rows="5" cols="35" placeholder="Write your thoughts here..." id="thoughts"></textarea>
+                    </div>
+                    <div class="input-holder">
+                        <label for="cover">Cover(PNG, JPEG, GIF):</label>
+                        <input type="file" name="cover" id="cover" accept="image/png, image/gif, image/jpeg">
+                    </div>
+                    <button type="submit">Add</button>
+                </form>
+            </div>
+            <div class="information">
+                <h3 class="large">Information</h3>
+                <ul>
+                    <li>Total books:</li>
+                    <li>Total read:</li>
+                    <li>Total pages read:</li>
+                    <li>How many pages to read:</li>
+                </ul>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
