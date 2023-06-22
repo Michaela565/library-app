@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
 /*
 Website Name: Your library
 Website URL: 
@@ -22,13 +24,16 @@ Copyright 2023. All Rights Reserved.
 }
 
 body {
-    font-family: 'Courier New', Courier, monospace;
+    font-family: 'Roboto', Times, serif;
     height: 100vh;
     display: grid;
     grid-template-rows: 5em auto;
     color: var(--black);
 }
 
+button{
+    font-family:'Roboto', Times, serif;
+}
 nav{
     display: flex;
     justify-content: space-between;
@@ -52,7 +57,6 @@ nav{
 /*---------------------------------------*/
 
 .nav-button{
-    font-family: 'Courier New', Courier, monospace;
     font-weight: 600;
     background-color: transparent;
     border: none;
@@ -103,12 +107,45 @@ h3{
 
 .add-a-book{
     padding: 1em 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.add-a-book>button{
+    max-width: 100px;
+    height: 3em;
+    border: none;
+    background-color: white;
+    border-color: var(--raw-umber);
+    border-style: solid;
+    border-width: 3px;
+    border-radius: 8px;
+    font-weight: 600;
+
 }
 
 label{
     display: block;
+    font-size: 16px;
+    font-weight: 500;
 }
 
-input{
-    
+label:last-of-type{
+    display: inline;
 }
+
+input.text{
+    margin-top: 5px;
+    height: 3em;
+    width: 100%;
+    border: none;
+    border-color: var(--raw-umber);
+    border-style: solid;
+    border-width: 3px;
+    border-radius: 8px;
+}
+
+/* toogle checkbox ------------------------*/
+
+/*-----------------------------------------*/

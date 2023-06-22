@@ -22,23 +22,24 @@
             <div class="form">
                 <h3 class="large">Add a book</h3>
                 <form action="" method="post" class="add-a-book">
-                    
                     <div class="input-holder">
-                        <label for="title">Title:</label>
-                        <input type="text" name="title" id="title">
+                        <label for="title">Title</label>
+                        <input type="text" name="title" id="title" class="text">
                     </div>
                     <div class="input-holder">
-                        <label for="author">Author:</label>
-                        <input type="text" name="author" id="author">
+                        <label for="author">Author</label>
+                        <input type="text" name="author" id="author" class="text">
                     </div>
                     <div class="input-holder">
-                        <label for="pages">Number of pages:</label>
-                        <input type="number" name="pages" id="pages">
+                        <label for="pages">Number of pages</label>
+                        <input type="number" name="pages" id="pages" class="text">
                     </div>
                     <div class="input-holder">
-                        <label for="have-read">Mark as read:</label>
-                        <input type="radio" name="have-read" id="have-read">
+                        <label for="have-read">Mark as read</label>
+                        <input type="checkbox" name="have-read" id="have-read">
+                        <div class="slider round"></div>
                     </div>
+                    <!--
                     <div class="input-holder">
                         <textarea rows="5" cols="35" placeholder="Write your thoughts here..." id="thoughts"></textarea>
                     </div>
@@ -46,6 +47,7 @@
                         <label for="cover">Cover(PNG, JPEG, GIF):</label>
                         <input type="file" name="cover" id="cover" accept="image/png, image/gif, image/jpeg">
                     </div>
+                    -->
                     <button type="submit">Add</button>
                 </form>
             </div>
