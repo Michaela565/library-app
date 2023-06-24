@@ -1,4 +1,4 @@
-const bookContainer = document.querySelector('#books')
+const bookContainer = document.querySelector('.books');
 const form = document.getElementById('add-form');
 form.addEventListener("submit", handleSubmit);
 
@@ -14,6 +14,7 @@ function Book(title, author, pages, read){
     }
 }
 
+
 function addBookToLibrary(formProps){
     let haveRead = false;
     if(!formProps.haveRead){
@@ -23,8 +24,19 @@ function addBookToLibrary(formProps){
         haveRead = true;
     }
     const book= new Book(formProps.title, formProps.author, formProps.pages, haveRead)
+
     myLibrary.push(book);
     createBookForDOM(book)
+}
+
+function addBookToDOM(book_div, book_title, book_author, book_pageCount, holder, label, checkbox){
+    bookContainer.appendChild(book_div);
+    book_div.appendChild(book_title);
+    book_div.appendChild(holder);
+    holder.appendChild(book_author);
+    holder.appendChild(book_pageCount);
+    book_div.appendChild(label);
+    label.appendChild(checkbox);
 }
 
 function createBookForDOM(book){
@@ -49,17 +61,27 @@ function createBookForDOM(book){
     checkbox.setAttribute("name", index);
     checkbox.id = index;
     checkbox.classList.add(book-checkbox);
+    if(book.read){
+        checkbox.checked = true;
+    }
+    checkbox.addEventListener('change', e => (e.target.checked) ? myLibrary[e.target.dataset.indexInArray].read=true : myLibrary[e.target.dataset.indexInArray].read=false);
 
     elements.forEach(element => element.dataset.indexInArray = index);
 
     book_title.classList.add('large', 'book-title');
     book_author.classList.add('book-author');
     book_pageCount.classList.add('book-pages');
+    holder.classList.add("holder");
+
+    book_title.innerHTML = book.title;
+    book_author.innerHTML = book.author;
+    book_pageCount.innerHTML = `${book.pages} pages`;
+
+
+    addBookToDOM(book_div, book_title, book_author, book_pageCount, holder, label, checkbox);
 }
 
-function addBookToDOM(book_title, book_author, book_pageCount, holder, label, checkbox){
 
-}
 
 function handleSubmit(e) {
     e.preventDefault();
