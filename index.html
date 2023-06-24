@@ -15,36 +15,36 @@
     </nav>
     <div class="contents">
         <div class="books">
-            <div class="book">
-                <div id="0" class="book-title large">Harry Potter 1</div>
-                <div class="holder">
-                    <div id="0" class="book-author">JK Rowling</div>
-                    <div id="0" class="book-pages"><b>223</b> pages</div>
+            <div class="book" data-indexInArray="0">
+                <div class="book-title large" data-indexInArray="0">Harry Potter 1</div>
+                <div class="holder" data-indexInArray="0">
+                    <div class="book-author" data-indexInArray="0">JK Rowling</div>
+                    <div class="book-pages" data-indexInArray="0"><b>223</b> pages</div>
                 </div>
-                <label for="0"> Mark as read
-                    <input type="checkbox" name="0" id="0" class="book-checkbox">
+                <label for="0" data-indexInArray="0"> Mark as read
+                    <input type="checkbox" name="0" id="0" class="book-checkbox" data-indexInArray="0">
                 </label>
             </div>
         </div>
         <div class="sidebar">
             <div class="form">
                 <h3 class="large">Add a book</h3>
-                <form action="" method="post" class="add-a-book">
+                <form action="" method="post" class="add-a-book" id="add-form">
                     <div class="input-holder">
                         <label for="title">Title</label>
-                        <input type="text" name="title" id="title" class="text">
+                        <input type="text" name="title" id="title" class="text" required>
                     </div>
                     <div class="input-holder">
                         <label for="author">Author</label>
-                        <input type="text" name="author" id="author" class="text">
+                        <input type="text" name="author" id="author" class="text" required>
                     </div>
                     <div class="input-holder">
                         <label for="pages">Number of pages</label>
-                        <input type="number" name="pages" id="pages" class="text">
+                        <input type="number" name="pages" id="pages" class="text" required>
                     </div>
                     <div class="input-holder">
                         <label for="have-read">Mark as read</label>
-                        <input type="checkbox" name="have-read" id="have-read">
+                        <input type="checkbox" name="haveRead" id="have-read">
                         <div class="slider round"></div>
                     </div>
                     <!--
