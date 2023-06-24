@@ -75,7 +75,45 @@ nav{
 }
 
 .books{
+    padding: 2em;
+    justify-content: left;
     background-color: var(--raw-umber);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 245px) ;
+    grid-auto-rows: 400px;
+    gap: 2em;
+}
+
+.book{
+    background-color: var(--silver);
+    border-radius: 30px;
+    transition: all 0.3s;
+    padding: 2em;
+    display: flex;
+    flex-direction: column;
+    justify-content:space-between;
+    align-items: center;
+}
+
+.book-title{
+    font-weight: 600;
+}
+
+.book-author{
+    font-size: 22px;
+    font-weight: 500;
+}
+
+.holder{
+    height: 5em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+}
+
+.book:hover{
+    transform: scale(1.1);
 }
 
 .sidebar{
@@ -146,6 +184,16 @@ input.text{
     border-radius: 8px;
 }
 
-/* toogle checkbox ------------------------*/
+ul{
+    margin-bottom: 1em;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 10px;
+    gap: 0.5em;
+}
 
-/*-----------------------------------------*/
+li{
+    list-style: none;
+    font-weight: 500;
+}

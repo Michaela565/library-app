@@ -15,8 +15,16 @@
     </nav>
     <div class="contents">
         <div class="books">
-            <div class="book"></div>
-            <div class="book"></div>
+            <div class="book">
+                <div id="0" class="book-title large">Harry Potter 1</div>
+                <div class="holder">
+                    <div id="0" class="book-author">JK Rowling</div>
+                    <div id="0" class="book-pages"><b>223</b> pages</div>
+                </div>
+                <label for="0"> Mark as read
+                    <input type="checkbox" name="0" id="0" class="book-checkbox">
+                </label>
+            </div>
         </div>
         <div class="sidebar">
             <div class="form">
@@ -54,10 +62,10 @@
             <div class="information">
                 <h3 class="large">Information</h3>
                 <ul>
-                    <li>Total books:</li>
-                    <li>Total read:</li>
-                    <li>Total pages read:</li>
-                    <li>How many pages to read:</li>
+                    <li>Total books:<div id="total-books"></div></li>
+                    <li>Total read:<div id="total-read"></div></li>
+                    <li>Total pages read:<div id="total-pages-read"></div></li>
+                    <li>How many pages to read:<div id="how-more-pages"></div></li>
                 </ul>
             </div>
         </div>
