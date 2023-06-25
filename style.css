@@ -151,7 +151,7 @@ h3{
     gap: 1em;
 }
 
-.add-a-book>button{
+.add-a-book>button, .delete-button{
     max-width: 100px;
     height: 3em;
     border: none;
@@ -162,6 +162,10 @@ h3{
     border-radius: 8px;
     font-weight: 600;
 
+}
+
+.delete-button{
+    padding: 0 1em;
 }
 
 label{

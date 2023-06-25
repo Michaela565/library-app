@@ -16,6 +16,7 @@ function Book(title, author, pages, read){
 
 
 function addBookToLibrary(formProps){
+    let inLibrary = false;
     let haveRead = false;
     if(!formProps.haveRead){
         haveRead = false;
@@ -25,11 +26,36 @@ function addBookToLibrary(formProps){
     }
     const book= new Book(formProps.title, formProps.author, formProps.pages, haveRead)
 
-    myLibrary.push(book);
+    for (let i = 0; i < myLibrary.length; i++) {
+        if(myLibrary[i] == undefined){
+            myLibrary[i] = book;
+            inLibrary = true;
+            break;
+        }
+        
+    }
+    
+    if(inLibrary == false){
+        myLibrary.push(book);
+    }
+    inLibrary == false;
     createBookForDOM(book)
 }
 
-function addBookToDOM(book_div, book_title, book_author, book_pageCount, holder, label, checkbox){
+function deleteBookFromLibrary(e){
+    const index = e.target.dataset.indexInArray
+    delete myLibrary[index];
+    console.log(myLibrary);
+
+    deleteBookFromDOM(index);
+}
+
+function deleteBookFromDOM(index){
+    book_elements = document.querySelectorAll(`[data-index-in-array='${index}']`);
+    book_elements.forEach(element => element.remove());
+}
+
+function addBookToDOM(book_div, book_title, book_author, book_pageCount, holder, label, checkbox, delete_button){
     bookContainer.appendChild(book_div);
     book_div.appendChild(book_title);
     book_div.appendChild(holder);
@@ -37,6 +63,7 @@ function addBookToDOM(book_div, book_title, book_author, book_pageCount, holder,
     holder.appendChild(book_pageCount);
     book_div.appendChild(label);
     label.appendChild(checkbox);
+    book_div.appendChild(delete_button);
 }
 
 function createBookForDOM(book){
@@ -51,8 +78,9 @@ function createBookForDOM(book){
     const holder = document.createElement('div');
     const label = document.createElement('label');
     const checkbox = document.createElement('input');
+    const delete_button = document.createElement('button');
 
-    const elements = [book_title, book_author, book_pageCount, holder, label, checkbox];
+    const elements = [book_title, book_author, book_pageCount, holder, label, checkbox, delete_button];
 
     label.htmlFor = index;
     label.innerHTML = "Mark as read:";
@@ -68,17 +96,21 @@ function createBookForDOM(book){
 
     elements.forEach(element => element.dataset.indexInArray = index);
 
+    delete_button.addEventListener('click', deleteBookFromLibrary);
+
     book_title.classList.add('large', 'book-title');
     book_author.classList.add('book-author');
     book_pageCount.classList.add('book-pages');
     holder.classList.add("holder");
+    delete_button.classList.add("delete-button");
 
     book_title.innerHTML = book.title;
     book_author.innerHTML = book.author;
     book_pageCount.innerHTML = `${book.pages} pages`;
+    delete_button.innerHTML = "Delete";
 
 
-    addBookToDOM(book_div, book_title, book_author, book_pageCount, holder, label, checkbox);
+    addBookToDOM(book_div, book_title, book_author, book_pageCount, holder, label, checkbox, delete_button);
 }
 
 
