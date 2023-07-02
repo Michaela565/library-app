@@ -1,13 +1,25 @@
 const bookContainer = document.querySelector('.books');
 const form = document.getElementById('add-form');
-form.addEventListener("submit", handleSubmit);
+const submitButton = document.getElementById('submit-button');
+const totalBooksDiv = document.getElementById('total-books');
+const totalReadDiv = document.getElementById('total-read');
+const totalPagesReadDiv = document.getElementById('total-pages-read');
+const pageToReadDiv = document.getElementById('how-more-pages');
+
+
+form.addEventListener("submit", handleSubmit, true);
 
 let myLibrary = [];
+let lastUsedIndex = 0;
+let totalBooks = 0;
+let totalRead = 0;
+let totalPagesRead = 0;
+let pageToRead = 0;
 
 function Book(title, author, pages, read){
     this.title = title;
     this.author = author;
-    this.pages = pages;
+    this.pages = Number(pages);
     this.read = read;
     this.info = function() {
         return`${title} by ${author}, ${pages} pages, ${read}`;
@@ -16,6 +28,7 @@ function Book(title, author, pages, read){
 
 
 function addBookToLibrary(formProps){
+    console.log("i get done first");
     let inLibrary = false;
     let haveRead = false;
     if(!formProps.haveRead){
@@ -29,6 +42,7 @@ function addBookToLibrary(formProps){
     for (let i = 0; i < myLibrary.length; i++) {
         if(myLibrary[i] == undefined){
             myLibrary[i] = book;
+            lastUsedIndex = i;
             inLibrary = true;
             break;
         }
@@ -37,8 +51,10 @@ function addBookToLibrary(formProps){
     
     if(inLibrary == false){
         myLibrary.push(book);
+        lastUsedIndex = myLibrary.indexOf(book);
     }
     inLibrary == false;
+    countInformation();
     createBookForDOM(book)
 }
 
@@ -93,10 +109,24 @@ function createBookForDOM(book){
         checkbox.checked = true;
     }
     checkbox.addEventListener('change', e => (e.target.checked) ? myLibrary[e.target.dataset.indexInArray].read=true : myLibrary[e.target.dataset.indexInArray].read=false);
-
+    checkbox.addEventListener('change', e =>{
+        if(e.target.checked){
+            countTotalPagesRead(true, myLibrary[e.target.dataset.indexInArray].pages);
+            howMuchMoreRead(false,myLibrary[e.target.dataset.indexInArray].pages)
+            updateInformation()
+        }
+        else{
+            countTotalPagesRead(false, myLibrary[e.target.dataset.indexInArray].pages);
+            howMuchMoreRead(true,myLibrary[e.target.dataset.indexInArray].pages)
+            updateInformation()
+        }
+    })
     elements.forEach(element => element.dataset.indexInArray = index);
 
+    delete_button.addEventListener('click', countInformation);
     delete_button.addEventListener('click', deleteBookFromLibrary);
+    
+
 
     book_title.classList.add('large', 'book-title');
     book_author.classList.add('book-author');
@@ -120,4 +150,74 @@ function handleSubmit(e) {
     const formData = new FormData(e.target);
     const formProps = Object.fromEntries(formData);
     addBookToLibrary(formProps);
+}
+
+function countInformation(e) {
+    console.log(lastUsedIndex);
+    if(!e) e = window.event;
+    if(e.target.classList == "delete-button"){
+        countTotalBooks(false);
+        if(myLibrary[e.target.dataset.indexInArray].read){
+            countTotalRead(false);
+            countTotalPagesRead(false, myLibrary[e.target.dataset.indexInArray].pages);
+        }
+        else{
+            howMuchMoreRead(false, myLibrary[e.target.dataset.indexInArray].pages);
+        }
+    }
+    else{
+        countTotalBooks(true);
+        console.log(myLibrary[lastUsedIndex].read);
+        if(myLibrary[lastUsedIndex].read){
+            countTotalRead(true);
+            countTotalPagesRead(true, myLibrary[lastUsedIndex].pages);
+        }
+        else{
+            howMuchMoreRead(true, myLibrary[lastUsedIndex].pages);
+        }
+    }
+    updateInformation();
+}
+
+function countTotalBooks(shouldAdd){
+    if(shouldAdd){
+        totalBooks++;
+    }
+    else{
+        totalBooks--;
+    }
+}
+
+function countTotalRead(shouldAdd) {
+    if(shouldAdd){
+        totalRead++;
+    }
+    else{
+        totalRead--;
+    }
+}
+
+function countTotalPagesRead(shouldAdd, pages) {
+    if(shouldAdd){
+        totalPagesRead = totalPagesRead + pages;
+    }
+    else{
+        totalPagesRead = totalPagesRead - pages;
+    }
+}
+
+function howMuchMoreRead(shouldAdd, pages) {
+    if(shouldAdd){
+        pageToRead = pageToRead + pages;
+    }
+    else{
+        pageToRead = pageToRead - pages;
+    }
+}
+
+function updateInformation() {
+    totalBooksDiv.innerHTML = totalBooks;
+    totalReadDiv.innerText = totalRead;
+    totalPagesReadDiv.innerHTML = totalPagesRead;
+    pageToReadDiv.innerHTML = pageToRead;
 }
