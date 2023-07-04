@@ -54,7 +54,6 @@ function addBookToLibrary(formProps){
 function deleteBookFromLibrary(e){
     const index = e.target.dataset.indexInArray;
     delete myLibrary[index];
-    console.log(myLibrary);
 
     deleteBookFromDOM(index);
 }
@@ -77,9 +76,9 @@ function addBookToDOM(book_div, book_title, book_author, book_pageCount, holder,
 
 function createBookForDOM(book){
     const index = myLibrary.indexOf(book);
+
     const book_div = document.createElement('div');
     book_div.classList.add('book');
-    book_div.dataset.indexInArray = index;
 
     const book_title = document.createElement('div');
     const book_author = document.createElement('div');
@@ -89,8 +88,10 @@ function createBookForDOM(book){
     const checkbox = document.createElement('input');
     const delete_button = document.createElement('button');
 
-    const elements = [book_title, book_author, book_pageCount, holder, label, checkbox, delete_button];
+    const elements = [book_div, book_title, book_author, book_pageCount, holder, label, checkbox, delete_button];
+    elements.forEach(element => element.dataset.indexInArray = index);
 
+    // Checkbox setup
     label.htmlFor = index;
     label.innerHTML = "Mark as read:";
 
@@ -98,28 +99,30 @@ function createBookForDOM(book){
     checkbox.setAttribute("name", index);
     checkbox.id = index;
     checkbox.classList.add(book-checkbox);
-    if(book.read){
-        checkbox.checked = true;
-    }
+    if(book.read) checkbox.checked = true;
+
+    // Changes the value in array if checkbox gets changed
     checkbox.addEventListener('change', e => (e.target.checked) ? myLibrary[e.target.dataset.indexInArray].read=true : myLibrary[e.target.dataset.indexInArray].read=false);
+
+    // Updates the information widget when checkbox state changes
     checkbox.addEventListener('change', e =>{
         if(e.target.checked){
+            countTotalRead(true);
             countTotalPagesRead(true, myLibrary[e.target.dataset.indexInArray].pages);
             howMuchMoreRead(false,myLibrary[e.target.dataset.indexInArray].pages)
             updateInformation()
         }
         else{
+            countTotalRead(false);
             countTotalPagesRead(false, myLibrary[e.target.dataset.indexInArray].pages);
             howMuchMoreRead(true,myLibrary[e.target.dataset.indexInArray].pages)
             updateInformation()
         }
     })
-    elements.forEach(element => element.dataset.indexInArray = index);
+    // End of checkbox
 
     delete_button.addEventListener('click', countInformation);
     delete_button.addEventListener('click', deleteBookFromLibrary);
-    
-
 
     book_title.classList.add('large', 'book-title');
     book_author.classList.add('book-author');
@@ -132,7 +135,6 @@ function createBookForDOM(book){
     book_pageCount.innerHTML = `${book.pages} pages`;
     delete_button.innerHTML = "Delete";
 
-
     addBookToDOM(book_div, book_title, book_author, book_pageCount, holder, label, checkbox, delete_button);
 }
 
@@ -140,8 +142,10 @@ function createBookForDOM(book){
 
 function handleSubmit(e) {
     e.preventDefault();
+
     const formData = new FormData(e.target);
     const formProps = Object.fromEntries(formData);
+
     addBookToLibrary(formProps);
 }
 
@@ -149,7 +153,7 @@ function countInformation(e) {
     if(!e) e = window.event;
     if(e.target.classList == "delete-button"){
         countTotalBooks(false);
-        if(myLibrary[e.target.dataset.indexInArray].read){
+        if(myLibrary[e.target.dataset.indexInArray].read){ // Only reduce these if they've been read already
             countTotalRead(false);
             countTotalPagesRead(false, myLibrary[e.target.dataset.indexInArray].pages);
         }
@@ -159,8 +163,7 @@ function countInformation(e) {
     }
     else{
         countTotalBooks(true);
-        console.log(myLibrary[lastUsedIndex].read);
-        if(myLibrary[lastUsedIndex].read){
+        if(myLibrary[lastUsedIndex].read){ // Only add these if they've been read already
             countTotalRead(true);
             countTotalPagesRead(true, myLibrary[lastUsedIndex].pages);
         }
@@ -172,18 +175,22 @@ function countInformation(e) {
 }
 
 function countTotalBooks(shouldAdd){
+    if(shouldAdd == null) return;
     (shouldAdd) ? totalBooks++ : totalBooks--;
 }
 
 function countTotalRead(shouldAdd) {
+    if(shouldAdd == null) return;
     (shouldAdd) ? totalRead++ : totalRead--;
 }
 
 function countTotalPagesRead(shouldAdd, pages) {
+    if(shouldAdd == null || pages == null) return;
     (shouldAdd) ? totalPagesRead = totalPagesRead + pages : totalPagesRead = totalPagesRead - pages;
 }
 
 function howMuchMoreRead(shouldAdd, pages) {
+    if(shouldAdd == null || pages == null) return;
     (shouldAdd) ? pageToRead = pageToRead + pages : pageToRead = pageToRead - pages;
 }
 
