@@ -21,20 +21,21 @@ function Book(title, author, pages, read){
     this.author = author;
     this.pages = Number(pages);
     this.read = read;
-    this.info = function() {
+    this.textInfo = function() {
         return`${title} by ${author}, ${pages} pages, ${read}`;
     }
 }
 
 function findFreeIndex(array){
-    let x = 0;
+    if (array == null) return;
+    if(array.length == 0)return 0;
+
+    let x = 0; // Variable that allows us to use "i" outside the for loop
     for (let i = 0; i < array.length; i++) {
         x = i;
-        console.log(x, i);
         if(array[i] == undefined) return i;
     }
-    if(x == 0)return x;
-    return x+1;
+    return x+1; // Return index that's bigger than array.lenght
 }
 
 
