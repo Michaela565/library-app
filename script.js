@@ -30,12 +30,11 @@ function findFreeIndex(array){
     if (array == null) return;
     if(array.length == 0)return 0;
 
-    let x = 0; // Variable that allows us to use "i" outside the for loop
     for (let i = 0; i < array.length; i++) {
-        x = i;
         if(array[i] == undefined) return i;
     }
-    return x+1; // Return index that's bigger than array.lenght
+
+    return array.length; // If no existing index is free, return the new free index
 }
 
 
@@ -46,7 +45,7 @@ function addBookToLibrary(formProps){
 
     lastUsedIndex = findFreeIndex(myLibrary);
     
-    (lastUsedIndex + 1 >= myLibrary.length) ? myLibrary.push(book) : myLibrary[lastUsedIndex] = book;
+    (lastUsedIndex == myLibrary.length) ? myLibrary.push(book) : myLibrary[lastUsedIndex] = book;
 
     countInformation();
     createBookForDOM(book);
