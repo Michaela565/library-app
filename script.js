@@ -28,7 +28,7 @@ class Book{
         return`${title} by ${author}, ${pages} pages, ${read}`;
     }
 
-    get title() {
+    /*get title() {
         return this.title;
     }
 
@@ -58,7 +58,7 @@ class Book{
 
     set read(value) {
         this.read = value;
-    }
+    }*/
 }
 
 
@@ -78,7 +78,7 @@ function findFreeIndex(array){
 function addBookToLibrary(formProps){
     let haveRead = true;
     if(!formProps.haveRead)haveRead = false;
-    const book= new Book(formProps.title, formProps.author, formProps.pages, haveRead)
+    const book= new Book(formProps.title, formProps.author, formProps.pages, haveRead);
 
     lastUsedIndex = findFreeIndex(myLibrary);
     
