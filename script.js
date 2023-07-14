@@ -16,15 +16,52 @@ let totalRead = 0;
 let totalPagesRead = 0;
 let pageToRead = 0;
 
-function Book(title, author, pages, read){
-    this.title = title;
-    this.author = author;
-    this.pages = Number(pages);
-    this.read = read;
-    this.textInfo = function() {
+class Book{
+    constructor(title, author, pages, read){
+        this.title = title;
+        this.author = author;
+        this.pages = Number(pages);
+        this.read = read;
+    }
+    
+    textInfo = () => {
         return`${title} by ${author}, ${pages} pages, ${read}`;
     }
+
+    get title() {
+        return this.title;
+    }
+
+    set title(value) {
+        this.title = value;
+    }
+
+    get author() {
+        return this.author;
+    }
+
+    set author(value) {
+        this.author = value;
+    }
+
+    get pages() {
+        return this.pages;
+    }
+
+    set pages(value) {
+        this.pages = Number(value);
+    }
+
+    get read() {
+        return this.read;
+    }
+
+    set read(value) {
+        this.read = value;
+    }
 }
+
+
 
 function findFreeIndex(array){
     if (array == null) return;
